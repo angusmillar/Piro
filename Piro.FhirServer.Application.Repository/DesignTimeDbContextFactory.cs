@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Piro.FhirServer.Application.Repository;
 
-public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppContext>
 {
     public DesignTimeDbContextFactory()
     {
@@ -12,7 +12,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbConte
         //Debugger.Launch();
     }
     
-    public AppDbContext CreateDbContext(string[] args)
+    public AppContext CreateDbContext(string[] args)
     {
         // Get environment
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "";
@@ -24,10 +24,10 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbConte
             .AddJsonFile($"appsettings.{environment}.json", optional: true)
             .Build();
         
-        var builder = new DbContextOptionsBuilder<AppDbContext>();
+        var builder = new DbContextOptionsBuilder<AppContext>();
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         builder.UseNpgsql(connectionString);
         builder.EnableSensitiveDataLogging();
-        return new AppDbContext(builder.Options);
+        return new AppContext(builder.Options);
     }
 }

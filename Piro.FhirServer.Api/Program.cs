@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Piro.FhirServer.Application.Domain.Repositories;
+using Piro.FhirServer.Application.Repository.Repositories;
 using Serilog;
+using AppContext = Piro.FhirServer.Application.Repository.AppContext;
 
 //Test Git
 
@@ -19,8 +22,12 @@ try
     
     //Database
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    // builder.Services.AddDbContext<NoteDb>(options =>
-    //     options.UseNpgsql(connectionString));
+    builder.Services.AddDbContext<AppContext>(options =>
+        options.UseNpgsql(connectionString));
+    
+    builder.Services.AddScoped<FhirResourceRepository>(); 
+    builder.Services.AddSingleton<IGetResourceByFhirId>(x => x.GetRequiredService<FhirResourceRepository>()); 
+    builder.Services.AddSingleton<IAddFhirResource>(x => x.GetRequiredService<FhirResourceRepository>());
     
     // Add services to the container.
     builder.Services.AddControllersWithViews();

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Piro.FhirServer.Application.Domain\Piro.FhirServer.Application.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

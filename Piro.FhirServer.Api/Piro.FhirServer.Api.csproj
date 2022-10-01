@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Piro.FhirServer.Application.Domain\Piro.FhirServer.Application.Domain.csproj" />
+    <ProjectReference Include="..\Piro.FhirServer.Application.Repository\Piro.FhirServer.Application.Repository.csproj" />
+    <ProjectReference Include="..\Piro.FhirServer.Application\Piro.FhirServer.Application.csproj" />
     <ProjectReference Include="..\Piro.FhirServer.UI.Domain\Piro.FhirServer.UI.Domain.csproj" />
     <ProjectReference Include="..\Piro.FhirServer.UI\Piro.FhirServer.UI.csproj" />
   </ItemGroup>

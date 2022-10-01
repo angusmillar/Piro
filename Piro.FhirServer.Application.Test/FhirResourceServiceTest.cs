@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Piro.FhirServer.Application.Domain.Models;
 using Xunit;
 using Moq;
@@ -10,7 +11,7 @@ namespace Piro.FhirServer.Application.Test;
 public class FhirResourceServiceTest
 {
     [Fact]
-    public void AddTest()
+    public async Task AddTest()
     {
         var resourceType = new ResourceType(id: 1, name: "Patient");
         var fhirResource = new ResourceStore(
@@ -25,9 +26,12 @@ public class FhirResourceServiceTest
         var addFhirResourceMock = new Mock<IResourceStoreAdd>();
         addFhirResourceMock.Setup(x => x.Add(It.IsAny<ResourceStore>()));
         
-        var fhirResourceService = new ResourceStoreService(addFhirResourceMock.Object);
+        var searchFhirResourceMock = new Mock<IResourceStoreSearch>();
+        searchFhirResourceMock.Setup(x => x.Search());
         
-        fhirResourceService.Add(fhirResource);
+        var fhirResourceService = new ResourceStoreService(addFhirResourceMock.Object, searchFhirResourceMock.Object);
+        
+        await  fhirResourceService.Add(fhirResource);
         
     }
 }

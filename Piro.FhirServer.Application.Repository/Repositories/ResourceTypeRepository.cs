@@ -9,10 +9,10 @@ public class ResourceTypeRepository :  GenericRepository<ResourceType>, IResourc
     {
     }
 
-    public override void Add(ResourceType entity)
+    public new async Task Add(ResourceType entity)
     {
         base.Add(entity);
-        Context.SaveChanges();
+        await Context.SaveChangesAsync();
     }
 
     public ResourceType? Get(string name)

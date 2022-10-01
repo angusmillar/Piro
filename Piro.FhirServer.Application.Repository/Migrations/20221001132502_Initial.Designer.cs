@@ -12,7 +12,7 @@ using Piro.FhirServer.Application.Repository;
 namespace Piro.FhirServer.Application.Repository.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20221001112444_Initial")]
+    [Migration("20221001132502_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

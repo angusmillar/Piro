@@ -6,11 +6,12 @@ namespace Piro.FhirServer.Application.Repository.Repositories;
 public class GenericRepository<T> : IGenericRepository<T> where T : DbBase
 {
     protected readonly AppContext Context;
-    public GenericRepository(AppContext context)
+
+    protected GenericRepository(AppContext context)
     {
         Context = context;
     }
-    public virtual void Add(T entity)
+    public void Add(T entity)
     {
         Context.Set<T>().Add(entity);
     }

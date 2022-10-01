@@ -4,5 +4,7 @@ namespace Piro.FhirServer.Application.Services;
 
 public interface IResourceStoreService
 {
-    void Add(ResourceStore resourceStore);
+    Task Add(ResourceStore resourceStore);
+    
+    
 }

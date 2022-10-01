@@ -4,6 +4,6 @@ namespace Piro.FhirServer.Application.Services;
 
 public interface IResourceTypeService
 {
-    void Add(ResourceType resourceType);
+    Task Add(ResourceType resourceType);
     ResourceType? GetByName(string name);
 }

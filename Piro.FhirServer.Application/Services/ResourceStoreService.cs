@@ -6,14 +6,22 @@ namespace Piro.FhirServer.Application.Services;
 public class ResourceStoreService : IResourceStoreService
 {
     private readonly IResourceStoreAdd _resourceStoreAdd;
+    private readonly IResourceStoreSearch _resourceStoreSearch;
+    
 
-    public ResourceStoreService(IResourceStoreAdd resourceStoreAdd)
+    public ResourceStoreService(IResourceStoreAdd resourceStoreAdd, IResourceStoreSearch resourceStoreSearch)
     {
         _resourceStoreAdd = resourceStoreAdd;
+        _resourceStoreSearch = resourceStoreSearch;
     }
 
-    public void Add(ResourceStore resourceStore)
+    public async Task Add(ResourceStore resourceStore)
     {
-        _resourceStoreAdd.Add(resourceStore);
+        await _resourceStoreAdd.Add(resourceStore);
+    }
+    
+    public IEnumerable<ResourceStore>  Search()
+    {
+        return _resourceStoreSearch.Search();
     }
 }

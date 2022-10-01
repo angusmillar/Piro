@@ -14,9 +14,9 @@ public class ResourceTypeService : IResourceTypeService
         _resourceTypeGetByName = resourceTypeGetByName;
     }
 
-    public void Add(ResourceType resourceType)
+    public async Task Add(ResourceType resourceType)
     {
-        _resourceTypeAdd.Add(resourceType);
+        await _resourceTypeAdd.Add(resourceType);
     }
 
     public ResourceType? GetByName(string name)

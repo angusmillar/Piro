@@ -9,8 +9,8 @@ public class AppContext : DbContext
         : base(options) { }
     
     public virtual DbSet<ResourceType> ResourceType { get; set; } = null!;
-    public virtual DbSet<FhirResource> FhirResource { get; set; } = null!;
-    public virtual DbSet<IndexResourceReference> IndexResourceReference { get; set; } = null!;
+    public virtual DbSet<ResourceStore> ResourceStore { get; set; } = null!;
+    public virtual DbSet<IndexReference> IndexReference { get; set; } = null!;
     public virtual DbSet<IndexString> IndexString { get; set; } = null!;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -20,42 +20,36 @@ public class AppContext : DbContext
         modelBuilder.Entity<ResourceType>().HasIndex(x => x.Name);
         
         //-- Resource ---------------------------------------------------------------------------------------------
-        modelBuilder.Entity<FhirResource>().HasKey(x => x.Id);
-        modelBuilder.Entity<FhirResource>().HasIndex(x => x.FhirId);
+        modelBuilder.Entity<ResourceStore>().HasKey(x => x.Id);
+        modelBuilder.Entity<ResourceStore>().HasIndex(x => x.FhirId);
         
         //A resource has only one ResourceType, and ResourceTypes are not deleted when a Resource is deleted
-        modelBuilder.Entity<FhirResource>()
+        modelBuilder.Entity<ResourceStore>()
             .HasOne<ResourceType>(x => x.ResourceType)
             .WithMany()
             .HasForeignKey(x => x.ResourceTypeId)
             .OnDelete(DeleteBehavior.Restrict);
         
-        //A resource has many ResourceReferenceIndexes each with a key back to the Resource  
-        modelBuilder.Entity<FhirResource>()
-            .HasMany<IndexResourceReference>()
-            .WithOne(x => x.SourceFhirResource)
-            .HasForeignKey(x => x.SourceResourceId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<FhirResource>()
-            .HasMany<IndexString>()
-            .WithOne(x => x.SourceFhirResource)
-            .HasForeignKey(x => x.SourceResourceId)
-            .OnDelete(DeleteBehavior.Cascade);
-        
         
         
         //-- IndexResourceReference ------------------------------------------------------------------------------------
-        modelBuilder.Entity<IndexResourceReference>().HasKey(x => x.Id);
+        modelBuilder.Entity<IndexReference>().HasKey(x => x.Id);
         
-        modelBuilder.Entity<IndexResourceReference>().HasIndex(x => x.TargetFhirId);
+        modelBuilder.Entity<IndexReference>().HasIndex(x => x.FhirId);
 
-        modelBuilder.Entity<IndexResourceReference>().Property(x => x.TargetResourceId).IsRequired(false);
+        modelBuilder.Entity<IndexReference>().Property(x => x.TargetResourceStoreId).IsRequired(false);
+        modelBuilder.Entity<IndexReference>().Property(x => x.ResourceStoreId).IsRequired();
         
-        modelBuilder.Entity<IndexResourceReference>()
-            .HasOne<FhirResource>(x => x.TargetResource)
+        modelBuilder.Entity<IndexReference>()
+            .HasOne<ResourceStore>(x => x.TargetResourceStore)
             .WithMany(x => x.BackResourceReferenceIndexList)
-            .HasForeignKey(x => x.TargetResourceId)
+            .HasForeignKey(x => x.TargetResourceStoreId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<IndexReference>()
+            .HasOne<ResourceType>(x => x.ResourceType)
+            .WithMany()
+            .HasForeignKey(x => x.ResourceTypeId)
             .OnDelete(DeleteBehavior.Restrict);
         
         
@@ -64,6 +58,8 @@ public class AppContext : DbContext
         modelBuilder.Entity<IndexString>().HasKey(x => x.Id);
         
         modelBuilder.Entity<IndexString>().HasIndex(x => x.Value);
+
+        modelBuilder.Entity<IndexString>().Property(x => x.ResourceStoreId).IsRequired();
         
         
         

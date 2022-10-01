@@ -1,19 +1,20 @@
 ﻿using System.Linq.Expressions;
+using Piro.FhirServer.Application.Domain.Models;
 
 namespace Piro.FhirServer.Application.Repository.Repositories;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T> : IGenericRepository<T> where T : DbBase
 {
     protected readonly AppContext Context;
     public GenericRepository(AppContext context)
     {
         Context = context;
     }
-    public void Add(T entity)
+    public virtual void Add(T entity)
     {
         Context.Set<T>().Add(entity);
     }
-    public void AddRange(IEnumerable<T> entities)
+    public virtual void AddRange(IEnumerable<T> entities)
     {
         Context.Set<T>().AddRange(entities);
     }

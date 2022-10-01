@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application.Test", "Piro.FhirServer.Application.Test\Piro.FhirServer.Application.Test.csproj", "{BCCE0658-378B-41CE-84C9-FF7C446F82DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application.Runner", "Piro.FhirServer.Application.Runner\Piro.FhirServer.Application.Runner.csproj", "{E7072686-E2D9-4483-891D-BF86602EA8FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{BCCE0658-378B-41CE-84C9-FF7C446F82DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCCE0658-378B-41CE-84C9-FF7C446F82DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCCE0658-378B-41CE-84C9-FF7C446F82DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7072686-E2D9-4483-891D-BF86602EA8FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7072686-E2D9-4483-891D-BF86602EA8FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7072686-E2D9-4483-891D-BF86602EA8FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7072686-E2D9-4483-891D-BF86602EA8FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

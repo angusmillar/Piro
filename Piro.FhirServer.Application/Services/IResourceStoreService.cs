@@ -2,7 +2,7 @@
 
 namespace Piro.FhirServer.Application.Services;
 
-public interface IFhirResourceService
+public interface IResourceStoreService
 {
-    void Add(FhirResource fhirResource);
+    void Add(ResourceStore resourceStore);
 }

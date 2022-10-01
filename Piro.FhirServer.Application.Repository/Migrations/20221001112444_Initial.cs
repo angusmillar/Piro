@@ -23,7 +23,7 @@ namespace Piro.FhirServer.Application.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FhirResource",
+                name: "ResourceStore",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -33,9 +33,9 @@ namespace Piro.FhirServer.Application.Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FhirResource", x => x.Id);
+                    table.PrimaryKey("PK_ResourceStore", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FhirResource_ResourceType_ResourceTypeId",
+                        name: "FK_ResourceStore_ResourceType_ResourceTypeId",
                         column: x => x.ResourceTypeId,
                         principalTable: "ResourceType",
                         principalColumn: "Id",
@@ -43,44 +43,39 @@ namespace Piro.FhirServer.Application.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IndexResourceReference",
+                name: "IndexReference",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TargetFhirId = table.Column<string>(type: "text", nullable: false),
-                    TargetVersionId = table.Column<string>(type: "text", nullable: false),
-                    TargetResourceTypeId = table.Column<int>(type: "integer", nullable: false),
-                    TargetResourceId = table.Column<int>(type: "integer", nullable: true),
-                    SourceResourceId = table.Column<int>(type: "integer", nullable: false),
-                    FhirResourceId = table.Column<int>(type: "integer", nullable: true)
+                    FhirId = table.Column<string>(type: "text", nullable: false),
+                    VersionId = table.Column<string>(type: "text", nullable: true),
+                    ResourceTypeId = table.Column<int>(type: "integer", nullable: false),
+                    TargetResourceStoreId = table.Column<int>(type: "integer", nullable: true),
+                    ResourceStoreId = table.Column<int>(type: "integer", nullable: false),
+                    SearchParameterId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IndexResourceReference", x => x.Id);
+                    table.PrimaryKey("PK_IndexReference", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IndexResourceReference_FhirResource_FhirResourceId",
-                        column: x => x.FhirResourceId,
-                        principalTable: "FhirResource",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_IndexResourceReference_FhirResource_SourceResourceId",
-                        column: x => x.SourceResourceId,
-                        principalTable: "FhirResource",
+                        name: "FK_IndexReference_ResourceStore_ResourceStoreId",
+                        column: x => x.ResourceStoreId,
+                        principalTable: "ResourceStore",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_IndexResourceReference_FhirResource_TargetResourceId",
-                        column: x => x.TargetResourceId,
-                        principalTable: "FhirResource",
+                        name: "FK_IndexReference_ResourceStore_TargetResourceStoreId",
+                        column: x => x.TargetResourceStoreId,
+                        principalTable: "ResourceStore",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_IndexResourceReference_ResourceType_TargetResourceTypeId",
-                        column: x => x.TargetResourceTypeId,
+                        name: "FK_IndexReference_ResourceType_ResourceTypeId",
+                        column: x => x.ResourceTypeId,
                         principalTable: "ResourceType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,74 +85,59 @@ namespace Piro.FhirServer.Application.Repository.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Value = table.Column<string>(type: "text", nullable: false),
-                    SourceResourceId = table.Column<int>(type: "integer", nullable: false),
-                    FhirResourceId = table.Column<int>(type: "integer", nullable: true)
+                    ResourceStoreId = table.Column<int>(type: "integer", nullable: false),
+                    SearchParameterId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IndexString", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IndexString_FhirResource_FhirResourceId",
-                        column: x => x.FhirResourceId,
-                        principalTable: "FhirResource",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_IndexString_FhirResource_SourceResourceId",
-                        column: x => x.SourceResourceId,
-                        principalTable: "FhirResource",
+                        name: "FK_IndexString_ResourceStore_ResourceStoreId",
+                        column: x => x.ResourceStoreId,
+                        principalTable: "ResourceStore",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FhirResource_FhirId",
-                table: "FhirResource",
+                name: "IX_IndexReference_FhirId",
+                table: "IndexReference",
                 column: "FhirId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FhirResource_ResourceTypeId",
-                table: "FhirResource",
+                name: "IX_IndexReference_ResourceStoreId",
+                table: "IndexReference",
+                column: "ResourceStoreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IndexReference_ResourceTypeId",
+                table: "IndexReference",
                 column: "ResourceTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IndexResourceReference_FhirResourceId",
-                table: "IndexResourceReference",
-                column: "FhirResourceId");
+                name: "IX_IndexReference_TargetResourceStoreId",
+                table: "IndexReference",
+                column: "TargetResourceStoreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_IndexResourceReference_SourceResourceId",
-                table: "IndexResourceReference",
-                column: "SourceResourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IndexResourceReference_TargetFhirId",
-                table: "IndexResourceReference",
-                column: "TargetFhirId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IndexResourceReference_TargetResourceId",
-                table: "IndexResourceReference",
-                column: "TargetResourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IndexResourceReference_TargetResourceTypeId",
-                table: "IndexResourceReference",
-                column: "TargetResourceTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IndexString_FhirResourceId",
+                name: "IX_IndexString_ResourceStoreId",
                 table: "IndexString",
-                column: "FhirResourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IndexString_SourceResourceId",
-                table: "IndexString",
-                column: "SourceResourceId");
+                column: "ResourceStoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_IndexString_Value",
                 table: "IndexString",
                 column: "Value");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceStore_FhirId",
+                table: "ResourceStore",
+                column: "FhirId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResourceStore_ResourceTypeId",
+                table: "ResourceStore",
+                column: "ResourceTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ResourceType_Name",
@@ -168,13 +148,13 @@ namespace Piro.FhirServer.Application.Repository.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IndexResourceReference");
+                name: "IndexReference");
 
             migrationBuilder.DropTable(
                 name: "IndexString");
 
             migrationBuilder.DropTable(
-                name: "FhirResource");
+                name: "ResourceStore");
 
             migrationBuilder.DropTable(
                 name: "ResourceType");

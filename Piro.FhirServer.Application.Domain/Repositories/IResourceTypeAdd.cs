@@ -2,7 +2,7 @@
 
 namespace Piro.FhirServer.Application.Domain.Repositories;
 
-public interface IGetResourceByFhirId
+public interface IResourceTypeAdd
 {
-    public FhirResource? Get(string fhirId);
+    public void Add(ResourceType resourceType);
 }

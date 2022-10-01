@@ -1,7 +1,9 @@
-﻿namespace Piro.FhirServer.Application.Repository.Repositories;
+﻿using Piro.FhirServer.Application.Domain.Models;
+
+namespace Piro.FhirServer.Application.Repository.Repositories;
 using System.Linq.Expressions;
 
-public interface IGenericRepository<T> where T : class
+public interface IGenericRepository<T> where T : DbBase
 {
     T? GetById(int id);
     IEnumerable<T> GetAll();

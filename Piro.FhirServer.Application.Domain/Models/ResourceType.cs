@@ -1,6 +1,6 @@
 ﻿namespace Piro.FhirServer.Application.Domain.Models;
 
-public class ResourceType
+public class ResourceType : DbBase
 {
 #pragma warning disable CS8618
     private ResourceType()

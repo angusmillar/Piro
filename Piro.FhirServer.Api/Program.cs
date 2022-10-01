@@ -25,9 +25,13 @@ try
     builder.Services.AddDbContext<AppContext>(options =>
         options.UseNpgsql(connectionString));
     
-    builder.Services.AddScoped<FhirResourceRepository>(); 
-    builder.Services.AddSingleton<IGetResourceByFhirId>(x => x.GetRequiredService<FhirResourceRepository>()); 
-    builder.Services.AddSingleton<IAddFhirResource>(x => x.GetRequiredService<FhirResourceRepository>());
+    builder.Services.AddScoped<ResourceStoreRepository>(); 
+    builder.Services.AddScoped<IResourceStoreGetByFhirId>(x => x.GetRequiredService<ResourceStoreRepository>()); 
+    builder.Services.AddScoped<IResourceStoreAdd>(x => x.GetRequiredService<ResourceStoreRepository>());
+    
+    builder.Services.AddScoped<ResourceTypeRepository>();
+    builder.Services.AddScoped<IResourceTypeAdd>(x => x.GetRequiredService<ResourceTypeRepository>());
+    builder.Services.AddScoped<IResourceTypeGetByName>(x => x.GetRequiredService<ResourceTypeRepository>());
     
     // Add services to the container.
     builder.Services.AddControllersWithViews();

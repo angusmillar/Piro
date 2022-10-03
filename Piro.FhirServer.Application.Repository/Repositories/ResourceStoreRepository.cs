@@ -34,35 +34,11 @@ namespace Piro.FhirServer.Application.Repository.Repositories;
                                                       q.Value == "AcmeTwo"))));
         }
         
-        public IEnumerable<ResourceStore> Search2()
-        {
-            try
-            {
-                Expression<Func<IndexString,bool>> stringIndexExp = StringIndex("AcmeTwo");
-                
-                Expression<Func<IndexReference,bool>> referenceIndexRoot = ReferenceJoin(stringIndexExp);
-                
-
-                IQueryable<ResourceStore> result = Extensions.AsExpandable(Context.ResourceStore).Where(x => x.ReferenceIndexList.Any(referenceIndexRoot.Compile()));
-
-                return result;
-
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-        
         public IEnumerable<ResourceStore> Search()
         {
             List<SearchParameterBase> searchParameterList = GetSearchParameters();
             Expression<Func<ResourceStore, bool>> predicate = GetResourceStorePredicate(searchParameterList);
             
-
-
             try
             {
               
@@ -71,8 +47,6 @@ namespace Piro.FhirServer.Application.Repository.Repositories;
                 var sql = result.ToQueryString();
 
                 return result;
-
-
             }
             catch (Exception e)
             {
@@ -94,36 +68,45 @@ namespace Piro.FhirServer.Application.Repository.Repositories;
             };
         }
 
-        private Expression<Func<IndexReference,bool>> ReferenceJoin(Expression<Func<IndexString,bool>> stringIndexExp)
-        {
-            var indexLeafExp = ReferenceIndexLeaf(stringIndexExp);
-            return q => 
-                q.ResourceTypeId == 2 && 
-                q.SearchParameterId == 200 &&
-                q.TargetResourceStore != null &&
-                q.TargetResourceStore.ReferenceIndexList.Any(indexLeafExp.Compile());
-        }
-        private Expression<Func<IndexReference,bool>> ReferenceIndexLeaf(Expression<Func<IndexString,bool>> stringIndexExp)
-        {
-            return y =>
-                y.ResourceTypeId == 2 && 
-                y.SearchParameterId == 300 &&
-                y.TargetResourceStore != null && 
-                y.TargetResourceStore.StringIndexList.Any(stringIndexExp.Compile());
-        }
-        
-        private Expression<Func<IndexString,bool>> StringIndex(string orgName)
-        {
-            return x => x.Value == orgName &&
-                        x.SearchParameterId == 500;
-        }
-
-
-        
-        
         private Expression<Func<ResourceStore, bool>> GetResourceStorePredicate(List<SearchParameterBase> searchParameterList)
         {
-            var predicate = PredicateBuilder.New<ResourceStore>();
+            ExpressionStarter<ResourceStore> predicate = PredicateBuilder.New<ResourceStore>();
+            foreach (SearchParameterBase searchParameterBase in searchParameterList)
+            {
+                if (searchParameterBase.Chained is null)
+                {
+                    if (searchParameterBase is StringSearchParameter stringSearchParameter)
+                    {
+                        var stringIndexQuery = StringIndex(stringSearchParameter);
+                        predicate = predicate.And(p => p.StringIndexList.Any(stringIndexQuery.Compile()));    
+                    }
+                    else if (searchParameterBase is ReferenceSearchParameter referenceSearchParameter)
+                    {
+                        var referenceIndexQuery = ReferenceIndex(referenceSearchParameter);
+                        predicate = predicate.And(p => p.ReferenceIndexList.Any(referenceIndexQuery.Compile()));
+                    }
+                    else
+                    {
+                        throw new NotImplementedException("The other search types");
+                    }
+                }
+                else if (searchParameterBase is ReferenceSearchParameter referenceSearchParameter)
+                {
+                    var chainedReferenceIndexQuery = ChainedReference(referenceSearchParameter);
+                    predicate = predicate.And(p => p.ReferenceIndexList.Any(chainedReferenceIndexQuery.Compile()));
+                }
+                else
+                {
+                    throw new NotImplementedException("All Chained searchParameters must be ReferenceSearchParameters");
+                }
+                
+            }
+            return predicate;
+        }
+        
+        private Expression<Func<ResourceStore, bool>> GetResourceStorePredicate2(List<SearchParameterBase> searchParameterList)
+        {
+            ExpressionStarter<ResourceStore> predicate = PredicateBuilder.New<ResourceStore>();
             foreach (SearchParameterBase searchParameterBase in searchParameterList)
             {
                 if (searchParameterBase is StringSearchParameter stringSearchParameter)

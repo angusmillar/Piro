@@ -3,23 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Domain", "Piro.FhirServer.Domain\Piro.FhirServer.Domain.csproj", "{BE2CA11D-2A19-479D-8D62-D79BB8A9B583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.Domain", "Piro.FhirServer.Domain\Piro.FhirServer.Domain.csproj", "{BE2CA11D-2A19-479D-8D62-D79BB8A9B583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application", "Piro.FhirServer.Application\Piro.FhirServer.Application.csproj", "{0DD1F704-42C7-49FE-B710-CFC573B29985}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.Application", "Piro.FhirServer.Application\Piro.FhirServer.Application.csproj", "{0DD1F704-42C7-49FE-B710-CFC573B29985}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Api", "Piro.FhirServer.Api\Piro.FhirServer.Api.csproj", "{B65763A6-8589-487A-A534-F413EFC4361C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.Api", "Piro.FhirServer.Api\Piro.FhirServer.Api.csproj", "{B65763A6-8589-487A-A534-F413EFC4361C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.UI", "Piro.FhirServer.UI\Piro.FhirServer.UI.csproj", "{6CC31DA1-F84F-4BA5-8F59-A7B4FAEAA1E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.UI", "Piro.FhirServer.UI\Piro.FhirServer.UI.csproj", "{6CC31DA1-F84F-4BA5-8F59-A7B4FAEAA1E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.UI.Domain", "Piro.FhirServer.UI.Domain\Piro.FhirServer.UI.Domain.csproj", "{78AF5D77-F0B6-4552-A8DD-A9ED1EA20321}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.UI.Domain", "Piro.FhirServer.UI.Domain\Piro.FhirServer.UI.Domain.csproj", "{78AF5D77-F0B6-4552-A8DD-A9ED1EA20321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application.Domain", "Piro.FhirServer.Application.Domain\Piro.FhirServer.Application.Domain.csproj", "{A3D2B7DC-9005-4488-8617-7E101A55E914}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.Application.Domain", "Piro.FhirServer.Application.Domain\Piro.FhirServer.Application.Domain.csproj", "{A3D2B7DC-9005-4488-8617-7E101A55E914}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application.Repository", "Piro.FhirServer.Application.Repository\Piro.FhirServer.Application.Repository.csproj", "{B2424BFF-93C1-4DE1-B6CD-E9B6943AA584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.Application.Repository", "Piro.FhirServer.Application.Repository\Piro.FhirServer.Application.Repository.csproj", "{B2424BFF-93C1-4DE1-B6CD-E9B6943AA584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application.Test", "Piro.FhirServer.Application.Test\Piro.FhirServer.Application.Test.csproj", "{BCCE0658-378B-41CE-84C9-FF7C446F82DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.Application.Test", "Piro.FhirServer.Application.Test\Piro.FhirServer.Application.Test.csproj", "{BCCE0658-378B-41CE-84C9-FF7C446F82DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.Application.Runner", "Piro.FhirServer.Application.Runner\Piro.FhirServer.Application.Runner.csproj", "{E7072686-E2D9-4483-891D-BF86602EA8FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piro.FhirServer.Application.Runner", "Piro.FhirServer.Application.Runner\Piro.FhirServer.Application.Runner.csproj", "{E7072686-E2D9-4483-891D-BF86602EA8FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piro.FhirServer.CodeGeneration", "Piro.FhirServer.CodeGeneration\Piro.FhirServer.CodeGeneration.csproj", "{4FC5B072-C783-414A-90AA-11E05CCFD95B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{E7072686-E2D9-4483-891D-BF86602EA8FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7072686-E2D9-4483-891D-BF86602EA8FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7072686-E2D9-4483-891D-BF86602EA8FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC5B072-C783-414A-90AA-11E05CCFD95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC5B072-C783-414A-90AA-11E05CCFD95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC5B072-C783-414A-90AA-11E05CCFD95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC5B072-C783-414A-90AA-11E05CCFD95B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

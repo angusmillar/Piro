@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hl7.Fhir.R4" Version="4.3.0" />
+    <PackageReference Include="Hl7.Fhir.STU3" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.9" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
@@ -18,8 +20,24 @@
     <ProjectReference Include="..\Piro.FhirServer.Application.Domain\Piro.FhirServer.Application.Domain.csproj" />
     <ProjectReference Include="..\Piro.FhirServer.Application.Repository\Piro.FhirServer.Application.Repository.csproj" />
     <ProjectReference Include="..\Piro.FhirServer.Application\Piro.FhirServer.Application.csproj" />
+    <ProjectReference Include="..\Piro.FhirServer.Domain\Piro.FhirServer.Domain.csproj" />
+    <ProjectReference Include="..\Piro.FhirServer.Fhir.R4\Piro.FhirServer.Fhir.R4.csproj" />
+    <ProjectReference Include="..\Piro.FhirServer.Fhir.Stu3\Piro.FhirServer.Fhir.Stu3.csproj" />
     <ProjectReference Include="..\Piro.FhirServer.UI.Domain\Piro.FhirServer.UI.Domain.csproj" />
     <ProjectReference Include="..\Piro.FhirServer.UI\Piro.FhirServer.UI.csproj" />
   </ItemGroup>
 
+  <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'Hl7.Fhir.STU3.Core'">
+        <Aliases>Stu3</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'Hl7.Fhir.R4.Core'">
+        <Aliases>R4</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+  
 </Project>

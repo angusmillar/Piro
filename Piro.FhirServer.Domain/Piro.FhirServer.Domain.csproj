@@ -6,4 +6,28 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Primitives">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.9\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hl7.Fhir.Support.Poco" Version="4.3.0" />
+  </ItemGroup>
+
+  <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'Hl7.Fhir.STU3.Core'">
+        <Aliases>Stu3</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)' == 'Hl7.Fhir.R4.Core'">
+        <Aliases>R4</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+
+
 </Project>

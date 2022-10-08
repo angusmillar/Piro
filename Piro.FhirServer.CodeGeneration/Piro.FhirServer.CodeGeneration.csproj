@@ -86,13 +86,17 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Class1.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="R4\R4CodeGen.cs" />
         <Compile Include="R4\SearchParametersBundleLoader.cs" />
         <Compile Include="Stu3\SearchParametersBundleLoader.cs" />
         <Compile Include="Stu3\Stu3CodeGen.cs" />
         <Compile Include="T4Templates\ResourceName\ResourceNameGen.cs" />
+        <Compile Include="T4Templates\ResourceTypeEnum\ResourceType.cs">
+          <AutoGen>True</AutoGen>
+          <DesignTime>True</DesignTime>
+          <DependentUpon>ResourceType.tt</DependentUpon>
+        </Compile>
         <Compile Include="Zip\ZipFileJsonLoader.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -102,6 +106,10 @@
     <ItemGroup>
       <Content Include="R4\fhir.4.0.1.definitions.json.zip" />
       <Content Include="Stu3\fhir.3.0.2.definitions.json.zip" />
+      <Content Include="T4Templates\ResourceTypeEnum\ResourceType.tt">
+        <Generator>TextTemplatingFileGenerator</Generator>
+        <LastGenOutput>ResourceType.cs</LastGenOutput>
+      </Content>
     </ItemGroup>
     <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
         <!--<ItemGroup>

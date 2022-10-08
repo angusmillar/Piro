@@ -8,7 +8,9 @@ public class ResourceStore : DbBase
     {
     }
     
-    public ResourceStore(int? id, string fhirId, int resourceTypeId, ResourceType resourceType, List<IndexReference> referenceIndexList, List<IndexString> stringIndexList, List<IndexReference> backResourceReferenceIndexList)
+    public ResourceStore(int? id, string fhirId, int resourceTypeId, ResourceType resourceType,
+        List<IndexReference> referenceIndexList, List<IndexString> stringIndexList,
+        List<IndexReference> backResourceReferenceIndexList)
     {
         Id = id;
         FhirId = fhirId;
